@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loan Application</title>
+  <link href="https://loan-cash1.github.io/online-loan2/">
+  <!-- CSS styles remain unchanged for brevity -->
+  <style>
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Noto Sans Sinhala', Arial, sans-serif;
+      background-color: #fefefe;
+      padding: 0;
+    }
+
+    .navbar {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .nav-left .home-btn {
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-right .lang-toggle {
+      background-color: transparent;
+      border: 2px solid #007bff;
+      color: #007bff;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .options-btn {
+      font-size: 1.2em;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      background: #ffffff;
+    }
+
+    h2, h3, p {
+      text-align: center;
+    }
+
+    .slider-container,
+    .repayment,
+    .stats-cards,
+    .loan-offer-card,
+    .service-eligibility {
+      margin-top: 30px;
+      width: 100%;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .output {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .repayment {
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 6px;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(40,167,69, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(40,167,69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(40,167,69, 0); }
+    }
+
+    .stats-cards {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      flex: 1 1 45%;
+      background: #4d10b7;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      min-height: 120px;
+    }
+
+    .loan-offer-card {
+      background: #e0f7fa;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .loan-offer-card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .btn-loan {
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      display: inline-block;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .service-eligibility {
+      background-image: url('https://i.ibb.co/VckrkwZ6/lake-mountains.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 300px;
+      position: relative;
+    }
+
+    .service-eligibility .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .service-eligibility ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .service-eligibility li {
+      margin-bottom: 10px;
+    }
+
+    .btn-cta {
+      background-color: #00c853;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .benefits-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .message-box {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      line-height: 1.8;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      white-space: normal;
+    }
+
+    .main-button {
+      margin-top: 20px;
+      background-color: #f1f5ff;
+      color: #000;
+      font-size: 18px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .floating-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: rgba(255, 255, 255, 0.7);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+    }
+
+    .floating-button img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .benefit img {
+      width: 60px;
+      height: 60px;
+      margin-right: 20px;
+    }
+
+    .benefit h3 {
+      margin: 0 0 5px;
+      font-size: 1.1em;
+      color: #000;
+    }
+
+    .benefit p {
+      margin: 0;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        flex: 1 1 100%;
+      }
+
+      .container {
+        padding: 15px;
+      }
+
+      .benefit {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .benefit img {
+        margin-bottom: 10px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+  
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="nav-left">
+      <a href="#" class="home-btn">Home</a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-toggle">English / Sinhala</button>
+      <button class="login-btn">Login</button>
+      <button class="options-btn">☰</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>Loans up to Rs. 500,000 – Fully Online!</h2>
+    <p>All you need is your ID!</p>
+
+    <div class="slider-container">
+      <label for="loanRange">Amount you need:</label>
+      <input type="range" id="loanRange" min="40000" max="300000" step="1000" value="40000">
+      <div class="output">Rs. <span id="loanAmount">40000</span></div>
+    </div>
+
+    <div class="repayment">
+      Total Repayment: Rs. <span id="repaymentAmount">44000</span><br>
+      Interest: <span id="interestRate">10%</span><br>
+      Duration: <span id="duration">6</span> months<br>
+      Monthly Payment: Rs. <span id="monthlyPayment">7333</span>
+    </div>
+
+    <a href="https://loan-cash1.github.io/online-loan2/" target="_blank" class="btn">Apply for a Loan</a>
+
+    <div class="stats-cards">
+      <div class="card">
+        <div>Customers</div>
+        <div style="font-size: 1.5rem;">312,000+</div>
+      </div>
+      <div class="card">
+        <div>Joined Today</div>
+        <div style="font-size: 1.5rem;" id="newUsers">255</div>
+      </div>
+    </div>
+
+    <div class="loan-offer-card">
+      <h3>Get a loan in 15 minutes</h3>
+      <img src="https://i.ibb.co/hFVvTxGY/Whats-App-Image-2025-05-27-at-10-09-48-05ead45a.jpg" alt="Loan">
+      <p>Up to LKR 100,000 for any purpose</p>
+      <p>Registration in 10 minutes</p>
+      <a href="https://loan-cash1.github.io/online-loan2/" class="btn-loan">Get Money</a>
+    </div>
+
+    <div class="service-eligibility">
+      <div class="overlay">
+        <h3>Who can use our service?</h3>
+        <ul>
+          <li>Age: 22 - 80</li>
+          <li>Location: Sri Lanka</li>
+          <li>Income: Any income earner</li>
+        </ul>
+        <a href="https://loan-cash1.github.io/online-loan2/" class="btn-cta">Get Money Now</a>
+      </div>
+    </div>
+
+    <div class="benefits-container"></div>
+
+    <div class="floating-button">
+      <img src="https://i.ibb.co/VcfMGQTz/New-Project.png" alt="Chat">
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <h2><span style="color: #2c59e1;">🟢</span> Capital Lanka</h2>
+        <div class="footer-links">
+          <div class="footer-column">
+            <p><a href="#">Home</a></p>
+            <p><a href="#">Apply for a Loan</a></p>
+            <p><a href="#">Privacy Policy</a></p>
+            <p><a href="#">Help</a></p>
+          </div>
+          <div class="footer-column">
+            <p><a href="#">How to Pay</a></p>
+            <p><a href="#">About</a></p>
+            <p><a href="#">Terms & Conditions</a></p>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <h3>Contact us:</h3>
+          <p>📞 <a href="tel:0724561373">0724561373</a></p>
+          <p>✉ <a href="mailto:Capital@lanka.lk">help@LCapital.lk</a></p>
+          <p>⏰ Daily 8:00 AM - 10:30 PM</p>
+        </div>
+        <div class="footer-social">
+          <p>Follow us:</p>
+          <a href="#">📘</a>
+          <a href="#">📸</a>
+        </div>
+      </div>
+    </footer>
+
+    <div style="background-color: #f9f9f9; padding: 20px; font-family: 'Noto Sans Sinhala', sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
+      <p><strong>Capital Lanka (PVT) LTD.</strong></p>
+      <p>Company Registration No: PV00264333 – Issued by the Registrar General of Companies, Colombo.</p>
+
+      <p><strong>Product Information:</strong></p>
+      <p>Minimum Annual Interest Rate: 10%</p>
+      <p>Maximum Annual Interest Rate: 182.5%</p>
+      <p>Minimum Loan Amount: Rs. 40,000</p>
+      <p>Maximum Loan Amount: Rs. 300,000</p>
+      <p>Minimum Term: 6 months</p>
+      <p>Maximum Term: 30 months</p>
+
+      <p><strong>Example Calculation (with interest and monthly installment):</strong></p>
+      <p>For a 91-day (3-month) loan of Rs. 50,000:</p>
+      <p>Interest: Rs. 4,500 (Annual Rate 10%)</p>
+      <p>Total Repayment: Rs. 54,500</p>
+      <p>Monthly Installment: Rs. 54,500 / 6 = Rs. 9,167</p>
+      <p>All applicable fees are already included in the total loan amount.</p>
+
+      <p><strong>Registered Address:</strong></p>
+      <p>Address:<br>221, High Level Road,<br>Pannipitiya 10230,<br>Sri Lanka</p>
+
+      <p><em>© 2025 Capital Lanka. All rights reserved.</em></p>
+    </div>
+
+  <script>
+    const range = document.getElementById("loanRange");
+    const loanAmount = document.getElementById("loanAmount");
+    const repaymentAmount = document.getElementById("repaymentAmount");
+    const interestRate = document.getElementById("interestRate");
+    const duration = document.getElementById("duration");
+    const monthlyPayment = document.getElementById("monthlyPayment");
+
+    function updateValues(value) {
+      const amount = parseInt(value);
+      const interest = 0.1;
+      let months = 6;
+      if (amount > 70000) months = 12;
+      if (amount > 150000) months = 24;
+      if (amount > 220000) months = 30;
+
+      const total = amount + amount * interest;
+      const monthly = total / months;
+
+      loanAmount.textContent = amount.toLocaleString();
+      repaymentAmount.textContent = Math.round(total).toLocaleString();
+      interestRate.textContent = "10%";
+      duration.textContent = months;
+      monthlyPayment.textContent = Math.round(monthly).toLocaleString();
+    }
+
+    range.addEventListener("input", (e) => {
+      updateValues(e.target.value);
+    });
+
+    updateValues(range.value);
+
+    function animateSlider(min, max, delay = 10) {
+      let direction = 1;
+      let value = min;
+      const interval = setInterval(() => {
+        range.value = value;
+        updateValues(value);
+        value += 1000 * direction;
+        if (value >= max) {
+          direction = -1;
+        } else if (value <= min) {
+          clearInterval(interval);
+        }
+      }, delay);
+    }
+
+    window.addEventListener("load", () => {
+      animateSlider(40000, 300000);
+    });
+  </script>
+</body>
+</html>
